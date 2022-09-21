@@ -6,11 +6,11 @@
 | ----------- | ---------------------- |
 | TeamID      |        Team-089        |
 | TeamName    |        teamName2       |
-| Captain     |                        |
+| Captain     |      Ishwar Ramesh     |
 | Captain     | iramesh2@illinois.edu  |
 | Member1     |     Sairam Penumarthy  |
 | Member1     | sairamp2@illinois.edu  |
-| Member2     |                        |
+| Member2     |       Riki Terada      |
 | Member2     |  rterada2@illinois.edu |
 | Member3     |                        |
 | Member3     |                        |
