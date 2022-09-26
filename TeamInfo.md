@@ -8,12 +8,12 @@
 | TeamName    |        teamName2       |
 | Captain     |      Ishwar Ramesh     |
 | Captain     | iramesh2@illinois.edu  |
-| Member1     |     Sairam Penumarthy  |
-| Member1     | sairamp2@illinois.edu  |
+| Member1     |     Shlok Mehrotra     |
+| Member1     |  shlokm2@illinois.edu  |
 | Member2     |       Riki Terada      |
 | Member2     |  rterada2@illinois.edu |
-| Member3     |                        |
-| Member3     |                        |
+| Member3     |      Jessica Singh     |
+| Member3     |  jsingh17@illinois.edu |
 
 ## Project Information
 
