@@ -20,6 +20,8 @@ Two examples of this are Notion and Strong. Notion is a personal productivity ap
 The data will be all user generated. The profile table will be the users and their attributes: username, password, task completion rate, rating, etc. Some will be inputted directly by the user themselves (username, password), some will be from using the app (task completion rate), and some will be from other users (rating).
 The tasks table will contain information about the tasks and their linked users. The most important attributes will be users, task ID, task content, deadline, creation time, duration, and friends. These are going to be generated as the user puts in their tasks. They will decide the task content, deadline, and friends that view the tasks. The other task metadata will be filled in by the app on creation.
 
+For this project, this database will be initially filled with auto generated users and tasks. This will essentially act as a simulation of what the final product would look like.
+
 ## Functionality
 When a user creates an account, we check if an account with that username already exists. If not, the account is created. The main functions of the app will be creating/ reading/ updating/ deleting tasks, creating friends, and searching other friends’ tasks and profiles. All the tasks are stored in a different table such that when the user views their tasks, it reads the todos from the database to display todos associated with your user and the tasks of your friends that you are listed as a “watcher” on.
 
