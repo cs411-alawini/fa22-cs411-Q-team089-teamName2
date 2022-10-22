@@ -1,21 +1,21 @@
-CREATE DATABASE IF NOT EXISTS cs411;
-USE cs411;
+CREATE DATABASE IF NOT EXISTS teamName2;
+USE teamName2;
 
 CREATE TABLE IF NOT EXISTS User (
     userId INT,
     passwords VARCHAR(255),
     names VARCHAR(255),
     completionRate FLOAT,
-    PRIMARY KEY (username)
+    PRIMARY KEY (userId)
 );
 
 
 CREATE TABLE IF NOT EXISTS Checklist (
     checkListId INT,
     names VARCHAR(255),
-    username VARCHAR(255),
-    FOREIGN KEY userId REFERENCES User(userId)
-    PRIMARY KEY (checkListId)
+    userId INT,
+    PRIMARY KEY (checkListId),
+    FOREIGN KEY (userId) REFERENCES User (userId)
 );
 
 CREATE TABLE IF NOT EXISTS FriendGroup (
@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS FriendGroup (
 CREATE TABLE IF NOT EXISTS Alert (
     alertId INT,
     messages VARCHAR(255),
-    pingedUserId VARCHAR(255),
-    FOREIGN KEY TO User.username
+    pingedUserId INT,
+    FOREIGN KEY (pingedUserId) REFERENCES User (userId)
 );
 
 CREATE TABLE IF NOT EXISTS Tasks(
@@ -36,6 +36,12 @@ CREATE TABLE IF NOT EXISTS Tasks(
     checkListId INT,
     dateCompleted DATE,
     taskContent VARCHAR(255),
-    FOREIGN KEY TO Checklist.checklistId,
-    PRIMARY KEY (taskId)
+    FOREIGN KEY (checkListId) REFERENCES Checklist (checkListId)
+);
+
+CREATE TABLE IF NOT EXISTS Relationships(
+    userId INT,
+    groupId INT,
+    FOREIGN KEY (userId) REFERENCES User (userId),
+    FOREIGN KEY (groupId) REFERENCES FriendGroup (groupId)
 );
