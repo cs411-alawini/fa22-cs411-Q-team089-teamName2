@@ -13,7 +13,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '../public'));
 
 // Apply routers
-app.use('/', require('./routes/index.js'))
+app.use('/', require('./routes/index'))
+app.use('/checklist', require('./routes/checklist'))
 
 app.listen(80, function () {
     console.log('Node app is running on port 80');

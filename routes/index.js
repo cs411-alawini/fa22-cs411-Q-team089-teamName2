@@ -12,7 +12,8 @@ router.get('/signin', function(req, res, next) {
   var username = req.body.username;
   var password = req.body.password;
 
-  res.render('checklist')
+  res.redirect('/checklist');
+  return;
 });
 
 module.exports = router;
