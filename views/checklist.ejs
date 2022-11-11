@@ -9,9 +9,12 @@
 
   <body>
     <div class="container mt-4">
+      <a href="/profile/profileLanding?userId=<%= userId%>" class="btn btn-primary position-relative">Profile</a>
+    </div>
+    <div class="container mt-4">
       <div class="card">
         <div class="card-body">
-          <h1>Checklist</h1>
+          <h1 class="text-center">Checklist</h1>
         </div>
         <div id="accordian">
           <% data.forEach(item => {%>
@@ -40,7 +43,7 @@
           <form action="/checklist/createChecklist" method="POST">
             <label for="newChecklist">Create New Checklist</label>
             <input type="text" class="form-control col-lg-9" placeholder="Enter Checklist Name" name="newChecklist">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary mt-2">Submit</button>
           </form>
         </div>
       </div>

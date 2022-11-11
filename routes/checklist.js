@@ -3,7 +3,6 @@ const router = express.Router();
 const path = require("path");
 const db = require("../database.js")
 const fs = require('fs');
-const e = require('express');
 
 var root = '/checklist';
 var currMax;
@@ -39,7 +38,8 @@ router.get('/', function(req, res) {
       return;
     }
     res.render("checklist", {
-      data: result
+      data: result,
+      userId: userId
     })
   })
 });
