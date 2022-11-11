@@ -5,9 +5,12 @@ for (var i = 0; i < cards.length; i++) {
   var row = cards[i].children[0].children[0];
   var checklistId = row.children[0].children[0].getAttribute('id');
   var deleteButton = row.children[2].children[0];
+  console.log(checklistId);
+  deleteButton.addEventListener('click', function(e) {
+    const formData = new FormData();
+    formData.append('checklistId', checklistId);
 
-  deleteButton.addEventListener('delete', function(e) {
-    fetch('/deleteChecklist', {method: 'DELETE'}).then(function(response) {
+    fetch('/checklist/deleteChecklist', {method: 'DELETE', body: formData}).then(function(response) {
       if(response.ok) {
         console.log('Deleted Checklist');
         return;
@@ -15,7 +18,7 @@ for (var i = 0; i < cards.length; i++) {
       throw new Error('Request failed.');
     }).catch(function(error) {
       console.log(error);
-    })
+    });
   });
 
 }

@@ -18,6 +18,14 @@ fs.readFile('./id.json', 'utf8', function(err, data) {
   }
 });
 
+router.use(function(req, res, next) {
+  if (req.query.method == 'DELETE') {
+    req.method = 'DELETE';
+    req.url = req.path;
+  }
+  next();
+});
+
 router.get('/loginLanding', function(req, res) {
   userId = req.query.username;
   res.redirect(root+'/');
@@ -66,6 +74,10 @@ router.post('/createChecklist', function(req, res) {
   });
 });
 
-
+router.delete('/deleteChecklist', function(req,res) {
+  var checklistId = req.query.checklistId;
+  console.log(checklistId);
+  res.sendFile(root+'/');
+});
 
 module.exports = router; 
