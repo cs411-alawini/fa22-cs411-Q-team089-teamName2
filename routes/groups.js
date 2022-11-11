@@ -21,6 +21,10 @@ router.use(function(req, res, next) {
   if (req.query.method == 'DELETE') {
     req.method = 'DELETE';
     req.url = req.path;
+  } else if (req.query.method == 'POST') {
+    req.method = "POST";
+    req.body.groupId = req.query.groupId;
+    req.url = req.path;
   }
   next();
 });
@@ -54,7 +58,7 @@ router.post('/createGroup', function(req, res) {
   var name = req.body.newGroup;
   currMax+=1
 
-  var sql = `INSERT INTO Checklist (checkListId, names, userId) VALUES ('${currMax}','${name}','${userId}')`;
+  var sql = `INSERT INTO FriendGroup (groupId, names) VALUES (${currMax},'${name}')`;
   console.log(sql);
   
   db.query(sql, function(err, result) {
@@ -68,7 +72,7 @@ router.post('/createGroup', function(req, res) {
         return;
       } else {
         obj = JSON.parse(data);
-        obj.checkListId = currMax;
+        obj.groupId = currMax;
         json = JSON.stringify(obj)
         fs.writeFile('./id.json', json, 'utf8', function(err) {
           if (err) res.send(err);
@@ -76,14 +80,12 @@ router.post('/createGroup', function(req, res) {
         });
       }
     });
-    res.redirect(root + '/');
+    res.redirect(root + `/joinGroup?method=POST&groupId=${currMax}`);
   });
 });
 
 router.post('/joinGroup', function(req, res) {
   var groupId = req.body.groupId;
-  currMax+=1
-
   var sql = `INSERT INTO Relationships (userId, groupId) VALUES (${userId},${groupId})`;
   console.log(sql);
   
