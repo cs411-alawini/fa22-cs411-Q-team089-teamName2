@@ -8,8 +8,9 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Mark Attendance' });
 });
 
-router.get('/mark', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/signin', function(req, res, next) {
+  var username = req.body.username;
+  var password = req.body.password;
 });
 
 module.exports = router;
