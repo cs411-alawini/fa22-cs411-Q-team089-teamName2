@@ -14,7 +14,7 @@
     <div class="container mt-4">
       <div class="card">
         <div class="card-body">
-          <h1 class="text-center">Groups</h1>
+          <h1 class="text-center">My Groups</h1>
         </div>
         <div id="accordian">
           <% data.forEach(item => {%>
@@ -40,11 +40,22 @@
     <div class="container mt-4">
       <div class="card">
         <div class="card-body">
-          <form action="/checklist/createChecklist" method="POST">
-            <label for="newChecklist">Create New Checklist</label>
-            <input type="text" class="form-control col-lg-9" placeholder="Enter Checklist Name" name="newChecklist">
-            <button type="submit" class="btn btn-primary mt-2">Submit</button>
-          </form>
+          <div class="row">
+            <div class="col-sm">
+              <form action="/checklist/createChecklist" method="POST">
+                <label for="newChecklist">Create New Checklist</label>
+                <input type="text" class="form-control col-lg-9" placeholder="Enter Checklist Name" name="newChecklist">
+                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+              </form>
+            </div>
+            <div class="col-sm">
+              <form action="/checklist/createChecklist" method="POST">
+                <label for="newChecklist">Create New Checklist</label>
+                <input type="text" class="form-control col-lg-9" placeholder="Enter Checklist Name" name="newChecklist">
+                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
