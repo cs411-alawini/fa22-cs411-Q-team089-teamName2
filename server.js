@@ -10,7 +10,9 @@ app.set('view engine', 'ejs');
  
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(__dirname + '../public'));
+app.use('/img',express.static(path.join(__dirname, 'public/images')));
+app.use('/js',express.static(path.join(__dirname, 'public/javascripts')));
+app.use('/css',express.static(path.join(__dirname, 'public/stylesheets')));
 
 // Apply routers
 app.use('/', require('./routes/index'))
