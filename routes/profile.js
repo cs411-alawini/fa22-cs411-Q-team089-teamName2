@@ -23,7 +23,15 @@ router.get('/profileLanding', function(req, res) {
 });
 
 router.get('/', function(req, res) {
-  res.render("profile", {});
+  var sql = `SELECT * FROM User WHERE userId=${userId}`
+  console.log(sql);
+  db.query(sql, function(err, result) {
+    if (err) {
+      res.send(err);
+      return;
+    }
+    res.render("profile", result[0]);
+  })
 });
 
 module.exports = router; 
