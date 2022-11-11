@@ -13,7 +13,7 @@ router.post('/signin', function(req, res) {
   var password = req.body.password
 
   req.query.username = username
-  res.redirect('/checklist?username='+req.query.username);
+  res.redirect('/checklist/loginLanding?username='+req.query.username);
   return;
 });
 

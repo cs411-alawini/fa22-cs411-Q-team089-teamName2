@@ -22,5 +22,16 @@
         <% }) %>
       </div>
     </div>
+    <div class="container mt-4">
+      <div class="card">
+        <div class="card-body">
+          <form action="/checklist/createChecklist" method="POST">
+            <label for="newChecklist">Create New Checklist</label>
+            <input type="text" class="form-control col-lg-9" placeholder="Enter Checklist Name" name="newChecklist">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
