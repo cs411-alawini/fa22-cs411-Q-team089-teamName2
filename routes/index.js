@@ -8,11 +8,12 @@ router.get('/', function(req, res) {
   res.render('index');
 });
 
-router.get('/signin', function(req, res, next) {
-  var username = req.body.username;
-  var password = req.body.password;
+router.post('/signin', function(req, res) {
+  var username = req.body.username
+  var password = req.body.password
 
-  res.redirect('/checklist');
+  req.query.username = username
+  res.redirect('/checklist?username='+req.query.username);
   return;
 });
 
