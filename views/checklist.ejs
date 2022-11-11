@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+   <title>TeamName2 Project</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+ </head>
+
+  <body>
+    <div class="container mt-4">
+      <div class="card">
+        <div class="card-body">
+          <h1>Checklist</h1>
+        </div>
+        <% data.forEach(item => {%>
+        <div class="card">
+          <div class="card-body">
+            <h4 id=<%= item.checkListId%>><%= item.names%></h4>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+    <div class="container mt-4">
+      <div class="card">
+        <div class="card-body">
+          <form action="/checklist/createChecklist" method="POST">
+            <label for="newChecklist">Create New Checklist</label>
+            <input type="text" class="form-control col-lg-9" placeholder="Enter Checklist Name" name="newChecklist">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
