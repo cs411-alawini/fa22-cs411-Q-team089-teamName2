@@ -42,17 +42,17 @@
         <div class="card-body">
           <div class="row">
             <div class="col-sm">
-              <form action="/checklist/createChecklist" method="POST">
-                <label for="newChecklist">Create New Checklist</label>
-                <input type="text" class="form-control col-lg-9" placeholder="Enter Checklist Name" name="newChecklist">
-                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+              <form action="/groups/createGroup" method="POST">
+                <label for="newGroup">Create New Group</label>
+                <input type="text" class="form-control col-lg-9" placeholder="Enter Group Name" name="newGroup">
+                <button type="submit" class="btn btn-primary mt-2">Create</button>
               </form>
             </div>
             <div class="col-sm">
-              <form action="/checklist/createChecklist" method="POST">
-                <label for="newChecklist">Create New Checklist</label>
-                <input type="text" class="form-control col-lg-9" placeholder="Enter Checklist Name" name="newChecklist">
-                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+              <form action="/groups/joinGroup" method="POST">
+                <label for="groupId">Join a Group</label>
+                <input type="text" class="form-control col-lg-9" placeholder="Enter GroupId" name="groupId">
+                <button type="submit" class="btn btn-primary mt-2">Join</button>
               </form>
             </div>
           </div>
