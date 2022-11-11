@@ -26,12 +26,13 @@ router.use(function(req, res, next) {
 });
 
 router.get('/loginLanding', function(req, res) {
-  userId = req.query.username;
+  userId = req.query.userId;
   res.redirect(root+'/');
 });
 
 router.get('/', function(req, res) {
   var sql = `SELECT checkListId, names FROM Checklist WHERE userId=${userId}`;
+  console.log(sql);
   db.query(sql, function(err, result) {
     if (err) {
       res.send(err);
