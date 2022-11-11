@@ -52,21 +52,21 @@ CREATE TABLE Relationships(
     FOREIGN KEY (groupId) REFERENCES FriendGroup (groupId)
 );
 
-SELECT AVG(u.completionRate)
-FROM User u 
-JOIN Relationships r ON r.userId=u.userId
-JOIN FriendGroup fg ON r.groupId=fg.groupId
-WHERE fg.names LIKE "%group1%"
-GROUP BY r.groupId
-LIMIT 15;
+-- SELECT AVG(u.completionRate)
+-- FROM User u 
+-- JOIN Relationships r ON r.userId=u.userId
+-- JOIN FriendGroup fg ON r.groupId=fg.groupId
+-- WHERE fg.names LIKE "%group1%"
+-- GROUP BY r.groupId
+-- LIMIT 15;
 
-SELECT COUNT(t.taskId), dateCompleted
-FROM User u
-JOIN Checklist c ON c.userId=u.userId
-JOIN Tasks t ON t.checkListId=c.checkListId
-JOIN Relationships r ON r.userId=u.userId
-JOIN FriendGroup fg ON r.groupId=fg.groupId
-WHERE fg.names LIKE "%group1%"
-GROUP BY dateCompleted
-ORDER BY COUNT(t.taskId) DESC
-LIMIT 15;
+-- SELECT COUNT(t.taskId), dateCompleted
+-- FROM User u
+-- JOIN Checklist c ON c.userId=u.userId
+-- JOIN Tasks t ON t.checkListId=c.checkListId
+-- JOIN Relationships r ON r.userId=u.userId
+-- JOIN FriendGroup fg ON r.groupId=fg.groupId
+-- WHERE fg.names LIKE "%group1%"
+-- GROUP BY dateCompleted
+-- ORDER BY COUNT(t.taskId) DESC
+-- LIMIT 15;
