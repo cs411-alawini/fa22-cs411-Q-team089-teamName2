@@ -76,8 +76,17 @@ router.post('/createChecklist', function(req, res) {
 
 router.delete('/deleteChecklist', function(req,res) {
   var checklistId = req.query.checklistId;
-  console.log(checklistId);
-  res.sendFile(root+'/');
+  
+  var sql = `DELETE FROM Checklist WHERE checkListId=${checklistId}`;
+  console.log(sql);
+
+  db.query(sql, function(err, result) {
+    if (err) {
+      res.send(err);
+      return;
+    }
+    res.redirect(root+'/');
+  })
 });
 
 module.exports = router; 
