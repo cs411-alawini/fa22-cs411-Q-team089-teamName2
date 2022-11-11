@@ -1,3 +1,4 @@
+taskId, checkListId, dateCompleted, taskContent
 1,1,2022-09-24,Attend 9:30 am meeting
 2,2,2022-10-08,Attend 9:30 am meeting
 3,3,2022-09-22,Attend 9:30 am meeting

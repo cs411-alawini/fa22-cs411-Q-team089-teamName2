@@ -1,4 +1,4 @@
-USE cs411;
+USE teamName2;
 
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Checklist;

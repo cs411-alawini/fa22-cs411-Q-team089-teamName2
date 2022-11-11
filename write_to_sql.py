@@ -2,7 +2,7 @@ import pandas as pd
 import mysql.connector
 
 
-# password = ""
+password = "" #put local password here
 data = pd.read_csv (r'generatedData/alertTable.csv')   
 df = pd.DataFrame(data)
 
@@ -14,6 +14,9 @@ mydb = mysql.connector.connect(
 
 cursor = mydb.cursor()
 
+cursor.execute("USE teamName2;")
+mydb.commit()
+
 for row in df.itertuples():
     # print(row.alertId)
     # print(row.)
@@ -22,5 +25,5 @@ for row in df.itertuples():
     sql = "INSERT INTO Alert (alertId, messages, pingedUserId) VALUES (%s, %s, %s)"
     val = (row.alertId, row._2, row._3)
     cursor.execute(sql, val)
-cursor.commit()
+    mydb.commit()
 print(df)
