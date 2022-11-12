@@ -69,4 +69,27 @@ router.get('/avgCompRate', function(req, res) {
   })
 });
 
+router.get('/mostProdDay', function(req, res) {
+  var sql = `
+  SELECT COUNT(t.taskId), dateCompleted
+  FROM User u
+  JOIN Checklist c on c.userId=u.userId
+  JOIN Tasks t ON t.checkListId=c.checkListId
+  JOIN Relationships r ON r.userId=u.userId
+  JOIN FriendGroup fg ON r.groupId=fg.groupId
+  WHERE fg.groupId LIKE ${groupId}
+  GROUP BY dateCompleted
+  ORDER BY COUNT(t.taskId) DESC
+  LIMIT 1`;
+
+  db.query(sql, function(err, result) {
+    if (err) {
+      res.send(err)
+      console.log(err);
+      return;
+    }
+    res.send({mostProdDay: result[0].dateCompleted});
+  });
+});
+
 module.exports = router; 
