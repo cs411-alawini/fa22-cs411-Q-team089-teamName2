@@ -8,18 +8,6 @@ var userId;
 var groupId;
 var groupName;
 
-router.use(function(req, res, next) {
-  if (req.query.method == 'DELETE') {
-    req.method = 'DELETE';
-    req.url = req.path;
-  } else if (req.query.method == 'POST') {
-    req.method = "POST";
-    req.body.groupId = req.query.groupId;
-    req.url = req.path;
-  }
-  next();
-});
-
 router.get('/landing', function(req, res) {
   userId = req.query.userId;
   groupId = req.query.groupId;
