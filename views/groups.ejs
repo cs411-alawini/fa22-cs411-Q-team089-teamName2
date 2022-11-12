@@ -18,17 +18,17 @@
         </div>
         <div id="accordian">
           <% data.forEach(item => {%>
-            <div class="card">
+            <div class="card m-2">
               <div class="card-body">
                 <div class="row">
-                  <div class="mx-4">
-                    <h4><%= item.names%></h4>
+                  <div class="col-sm">
+                    <h4 class="mx-4"><%= item.names%></h4>
                   </div>
-                  <div class="mx-4">
-                    <a href="/groupView/landing?userId=<%= userId%>&groupId=<%= item.groupId%>&groupName=<%= item.names%>" class="btn btn-primary">Go to Group</a>
-                  </div>
-                  <div class="mx-4">
-                    <a  class="btn btn-primary" href="/groups/leaveGroup?method=DELETE&groupId=<%= item.groupId%>">Leave Group</a>
+                  <div class="col-sm">
+                    <div class="row">
+                      <a href="/groupView/landing?userId=<%= userId%>&groupId=<%= item.groupId%>&groupName=<%= item.names%>" class="btn btn-primary col-sm mx-4">Go to Group</a>
+                      <a href="/groups/leaveGroup?method=DELETE&groupId=<%= item.groupId%>" class="btn btn-primary col-sm mx-4">Leave Group</a>
+                    </div>
                   </div>
                 </div>
               </div>

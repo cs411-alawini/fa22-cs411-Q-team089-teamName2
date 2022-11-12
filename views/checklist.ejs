@@ -18,17 +18,17 @@
         </div>
         <div id="accordian">
           <% data.forEach(item => {%>
-          <div class="card">
+          <div class="card m-2">
             <div class="card-body">
               <div class="row">
-                <div class="mx-4">
-                  <h4 id=<%= item.checkListId%>><%= item.names%></h4>
+                <div class="col-sm">
+                  <h4 class="mx-4"><%= item.names%></h4>
                 </div>
-                <div class="mx-4">
-                  <a href="/tasks/landing?userId=<%= userId%>&checklistId=<%= item.checkListId%>" class="btn btn-primary">See Tasks</a>
-                </div>
-                <div class="mx-4">
-                  <a href="/checklist/deleteChecklist?method=DELETE&checklistId=<%= item.checkListId%>" class="btn btn-primary">Delete</a>
+                <div class="col-sm">
+                  <div class="row">
+                    <a href="/tasks/landing?userId=<%= userId%>&checklistId=<%= item.checkListId%>" class="btn btn-primary col-sm mx-4">See Tasks</a>
+                  <a href="/checklist/deleteChecklist?method=DELETE&checklistId=<%= item.checkListId%>" class="btn btn-primary col-sm mx-4">Delete</a>
+                  </div>
                 </div>
               </div>
             </div>

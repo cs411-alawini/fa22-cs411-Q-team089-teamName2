@@ -20,14 +20,18 @@
     <div class="card">
       <div class="class-body">
         <div class = "row">
-          <button id="avgCompRateBtn" class="btn btn-primary m-2">Refresh</button>
-          <h4 class="m-2">Average Completion Rate:</h4>
-          <h4 id="avgCompRate" class="m-2"></h4>
+          <div class="col-sm">
+            <button id="avgCompRateBtn" class="btn btn-primary mx-2">Refresh</button>
+            <h4 class="mx-2">Average Completion Rate:</h4>
+          </div>
+          <h4 id="avgCompRate" class="col-sm mx-2"></h4>
         </div>
         <div class="row">
-          <button id="mostProdDayBtn" class="btn btn-primary m-2">Refresh</button>
-          <h4 class="m-2">Most Productive Day:</h4>
-          <h4 id="mostProdDay" class="m-2"></h4> 
+          <div class="col-sm">
+            <button id="mostProdDayBtn" class="btn btn-primary mx-2">Refresh</button>
+            <h4 class="mx-2">Most Productive Day:</h4>
+          </div>
+          <h4 id="mostProdDay" class="col-sm mx-2"></h4> 
         </div>
       </div>
     </div>
@@ -39,17 +43,17 @@
       </div>
       <div id="accordian">
         <% data.forEach(item => {%>
-          <div class="card">
+          <div class="card m-2">
             <div class="card-body">
               <div class="row">
-                <div class="mx-4">
+                <div class="col-sm">
                   <h4><%= item.names%></h4>
                 </div>
-                <div class="mx-4">
-                  <a href="" class="btn btn-primary">To be implemented</a>
-                </div>
-                <div class="mx-4">
-                  <a href="" class="btn btn-primary">To be implemented</a>
+                <div class="col-sm">
+                  <div class="row">
+                    <a href="" class="btn btn-primary col-sm mx-2">To be implemented</a>
+                    <a href="" class="btn btn-primary col-sm mx-2">To be implemented</a>
+                  </div>
                 </div>
               </div>
             </div>
