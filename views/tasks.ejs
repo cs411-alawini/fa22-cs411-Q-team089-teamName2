@@ -26,8 +26,8 @@
                   </div>
                   <div class="col-sm">
                     <div class="row">
-                      <a href="/tasks/completeTask" class="btn btn-primary col-sm mx-4">Complete</a>
-                      <a href="" class="btn btn-primary col-sm mx-4">Abandon</a>
+                      <a href="/tasks/completeTask?method=PUT&taskId=<%= item.taskId%>" class="btn btn-primary col-sm mx-4">Complete</a>
+                      <a href="/tasks/abandonTask?method=DELETE&taskId=<%= item.taskId%>" class="btn btn-primary col-sm mx-4">Abandon</a>
                     </div>
                   </div>
                 </div>

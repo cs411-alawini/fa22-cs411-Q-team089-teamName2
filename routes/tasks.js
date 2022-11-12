@@ -20,6 +20,13 @@ router.use(function(req, res, next) {
   if (req.query.method == 'DELETE') {
     req.method = 'DELETE';
     req.url = req.path;
+  } else if (req.query.method == "PUT") {
+    req.method = 'PUT';
+    req.url = req.path;
+  } else if (req.query.method == "POST") {
+    req.body.newTask = req.query.newTask;
+    req.method = "POST";
+    req.url = req.path;
   }
   next();
 });
@@ -32,7 +39,7 @@ router.get('/landing', function(req, res) {
 
 router.get('/', function(req, res) {
   var sql = `
-  SELECT taskContent 
+  SELECT taskId, taskContent
   FROM Tasks  
   WHERE checkListId=${data['checklistId']} AND dateCompleted IS NULL`;
   console.log(sql);
@@ -84,9 +91,9 @@ router.post('/createTask', function(req, res) {
 router.put('/completeTask', function(req, res) {
   var taskId = req.query.taskId;
   var d = new Date();
-  var dateCompleted = d.getFullYear+d.getMonth+d.getDate;
+  var dateCompleted = d.toISOString().split('T')[0];
 
-  var sql = `UPDATE Tasks SET dateCompleted=${dateCompleted} WHERE taskId=${taskId}`;
+  var sql = `UPDATE Tasks SET dateCompleted='${dateCompleted}' WHERE taskId=${taskId}`;
   console.log(sql);
   
   db.query(sql, function(err, result) {
@@ -94,14 +101,59 @@ router.put('/completeTask', function(req, res) {
       res.send(err);
       return;
     }
-    fs.readFile('./id.json', 'utf8', function(err, data) {
+    res.redirect(root + `/updateCompRate?method=PUT&completed=true`);
+  });
+});
+
+router.delete('/abandonTask', function(req, res) {
+  var taskId = req.query.taskId;
+
+  var sql = `DELETE FROM Tasks WHERE taskId=${taskId}`;
+  console.log(sql);
+
+  db.query(sql, function(err, result) {
+    if (err) {
+      res.send(err);
+      return;
+    }
+    res.redirect(root+ `/updateCompRate?method=PUT&completed=false`);
+  });
+});
+
+router.put('/updateCompRate', function(req, res) {
+  var completed = req.query.completed;
+  var sql = `
+  SELECT COUNT(t.taskId) as numCompleted, u.completionRate
+  FROM User u
+  JOIN Checklist c ON c.userId=u.userId
+  JOIN Tasks t ON t.checkListId=c.checkListId
+  WHERE u.userId=${data["userId"]} AND t.dateCompleted IS NOT NULL
+  GROUP BY u.userId`;
+  console.log(sql);
+
+  db.query(sql, function(err, result) {
+    if (err) {
+      res.send(err);
+      return;
+    }
+    console.log(result);
+    var newAvg;
+    if (completed == "true") {
+      newAvg = result[0].numCompleted/(((result[0].numCompleted-1)/result[0].completionRate)+1)
+    } else {
+      newAvg = result[0].numCompleted/(((result[0].numCompleted)/result[0].completionRate)+1)
+    }
+    var sql = `UPDATE User SET completionRate=${newAvg} WHERE userId=${data["userId"]}`
+    console.log(sql)
+
+    db.query(sql, function(err, result) {
       if (err) {
         res.send(err);
         return;
       }
-    });
-    res.redirect(root + `/joinGroup?method=POST&groupId=${currMax}`);
-  });
+      res.redirect(root+'/');
+    })
+  })
 });
 
 router.post('/joinGroup', function(req, res) {
