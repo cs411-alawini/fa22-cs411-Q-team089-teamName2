@@ -94,20 +94,6 @@ router.post('/joinGroup', function(req, res) {
       res.send(err);
       return;
     }
-    fs.readFile('./id.json', 'utf8', function(err, data) {
-      if (err) {
-        res.send(err);
-        return;
-      } else {
-        obj = JSON.parse(data);
-        obj.checkListId = currMax;
-        json = JSON.stringify(obj)
-        fs.writeFile('./id.json', json, 'utf8', function(err) {
-          if (err) res.send(err);
-          return;
-        });
-      }
-    });
     res.redirect(root + '/');
   });
 });
