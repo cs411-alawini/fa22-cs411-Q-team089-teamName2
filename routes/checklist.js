@@ -25,7 +25,7 @@ router.use(function(req, res, next) {
   next();
 });
 
-router.get('/loginLanding', function(req, res) {
+router.get('/landing', function(req, res) {
   userId = req.query.userId;
   res.redirect(root+'/');
 });

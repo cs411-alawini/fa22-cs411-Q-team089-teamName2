@@ -9,7 +9,7 @@
 
   <body>
     <div class="container mt-4">
-      <a href="" class="btn btn-primary position-relative">Back</a>
+      <a href="/checklist/landing?userId=<%= userId%>" class="btn btn-primary position-relative">Back</a>
     </div>
     <div class="container mt-4">
       <div class="card">
@@ -40,22 +40,11 @@
     <div class="container mt-4">
       <div class="card">
         <div class="card-body">
-          <div class="row">
-            <div class="col-sm">
-              <form action="/groups/createGroup" method="POST">
-                <label for="newGroup">Create New Group</label>
-                <input type="text" class="form-control col-lg-9" placeholder="Enter Group Name" name="newGroup">
-                <button type="submit" class="btn btn-primary mt-2">Create</button>
-              </form>
-            </div>
-            <div class="col-sm">
-              <form action="/groups/joinGroup" method="POST">
-                <label for="groupId">Join a Group</label>
-                <input type="text" class="form-control col-lg-9" placeholder="Enter GroupId" name="groupId">
-                <button type="submit" class="btn btn-primary mt-2">Join</button>
-              </form>
-            </div>
-          </div>
+          <form action="/groups/createGroup" method="POST">
+            <label for="newGroup">Create New Group</label>
+            <input type="text" class="form-control col-lg-9" placeholder="Enter Group Name" name="newGroup">
+            <button type="submit" class="btn btn-primary mt-2">Create</button>
+          </form>
         </div>
       </div>
     </div>

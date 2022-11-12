@@ -44,6 +44,7 @@ router.get('/', function(req, res) {
     }
     res.render("tasks", {
       data: result,
+      userId: data["userId"],
       checklistId: data["checklistId"]
     })
   })
