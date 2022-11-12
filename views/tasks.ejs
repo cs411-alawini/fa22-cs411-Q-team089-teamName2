@@ -26,7 +26,7 @@
                   </div>
                   <div class="col-sm">
                     <div class="row">
-                      <a href="" class="btn btn-primary col-sm mx-4">Complete</a>
+                      <a href="/tasks/completeTask" class="btn btn-primary col-sm mx-4">Complete</a>
                       <a href="" class="btn btn-primary col-sm mx-4">Abandon</a>
                     </div>
                   </div>
@@ -40,9 +40,9 @@
     <div class="container mt-4">
       <div class="card">
         <div class="card-body">
-          <form action="/groups/createGroup" method="POST">
-            <label for="newGroup">Create New Group</label>
-            <input type="text" class="form-control col-lg-9" placeholder="Enter Group Name" name="newGroup">
+          <form action="/tasks/createTask" method="POST">
+            <label for="newTask">Create Task</label>
+            <input type="text" class="form-control col-lg-9" placeholder="Enter Task Content" name="newTask">
             <button type="submit" class="btn btn-primary mt-2">Create</button>
           </form>
         </div>

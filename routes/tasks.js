@@ -34,7 +34,7 @@ router.get('/', function(req, res) {
   var sql = `
   SELECT taskContent 
   FROM Tasks  
-  WHERE checkListId=${data['checklistId']}`;
+  WHERE checkListId=${data['checklistId']} AND dateCompleted IS NULL`;
   console.log(sql);
 
   db.query(sql, function(err, result) {
@@ -50,11 +50,12 @@ router.get('/', function(req, res) {
   })
 });
 
-router.post('/createGroup', function(req, res) {
-  var name = req.body.newGroup;
-  currMax+=1
+router.post('/createTask', function(req, res) {
+  var taskContent = req.body.newTask;
+  currMax+=1;
 
-  var sql = `INSERT INTO FriendGroup (groupId, names) VALUES (${currMax},'${name}')`;
+  var sql = `INSERT INTO Tasks (taskId, checkListId, dateCompleted, taskContent)
+  VALUES ('${currMax}','${data["checklistId"]}',NULL,'${taskContent}')`;
   console.log(sql);
   
   db.query(sql, function(err, result) {
@@ -68,12 +69,35 @@ router.post('/createGroup', function(req, res) {
         return;
       } else {
         obj = JSON.parse(data);
-        obj.groupId = currMax;
+        obj.taskId = currMax;
         json = JSON.stringify(obj)
         fs.writeFile('./id.json', json, 'utf8', function(err) {
           if (err) res.send(err);
           return;
         });
+      }
+    });
+    res.redirect(root + '/');
+  });
+});
+
+router.put('/completeTask', function(req, res) {
+  var taskId = req.query.taskId;
+  var d = new Date();
+  var dateCompleted = d.getFullYear+d.getMonth+d.getDate;
+
+  var sql = `UPDATE Tasks SET dateCompleted=${dateCompleted} WHERE taskId=${taskId}`;
+  console.log(sql);
+  
+  db.query(sql, function(err, result) {
+    if (err) {
+      res.send(err);
+      return;
+    }
+    fs.readFile('./id.json', 'utf8', function(err, data) {
+      if (err) {
+        res.send(err);
+        return;
       }
     });
     res.redirect(root + `/joinGroup?method=POST&groupId=${currMax}`);
