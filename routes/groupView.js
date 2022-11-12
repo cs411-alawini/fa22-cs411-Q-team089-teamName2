@@ -6,6 +6,7 @@ const db = require("../database.js")
 var root = '/groupView';
 var userId;
 var groupId;
+var groupName;
 
 router.use(function(req, res, next) {
   if (req.query.method == 'DELETE') {
@@ -22,11 +23,30 @@ router.use(function(req, res, next) {
 router.get('/landing', function(req, res) {
   userId = req.query.userId;
   groupId = req.query.groupId;
+  groupName = req.query.groupName;
   res.redirect(root+'/');
 });
 
 router.get('/', function(req, res) {
-  res.render("groupView");
+  var sql = `
+  SELECT u.userId, u.names
+  FROM User u
+  JOIN Relationships r ON r.userId=u.userId
+  WHERE r.groupId=${groupId} AND NOT u.userId=${userId}`;
+  console.log(sql);
+
+  db.query(sql, function(err, result) {
+    if (err) {
+      res.send(err);
+      return;
+    }
+    res.render("groupView", {
+      data: result,
+      userId: userId,
+      groupId: groupId,
+      groupName: groupName
+    })
+  })
 });
 
 router.post('/createGroup', function(req, res) {

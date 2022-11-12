@@ -7,14 +7,13 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
  </head>
 
-  
  <body>
   <div class="container mt-4">
-    <a href="/profile/profileLanding?userId=" class="btn btn-primary position-relative">Profile</a>
+    <a href="/profile/profileLanding?userId=<%userId%>" class="btn btn-primary position-relative">Profile</a>
   </div>
   
   <div class="container mt-4">
-    <h1 class="text-center">TEMP NAME</h1>
+    <h1 class="text-center"><%= groupName%></h1>
   </div>
 
   <div class="container mt-4">
@@ -31,7 +30,23 @@
         <h1 class="text-center">Members</h1>
       </div>
       <div id="accordian">
-        
+        <% data.forEach(item => {%>
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="mx-4">
+                  <h4><%= item.names%></h4>
+                </div>
+                <div class="mx-4">
+                  <a href="/groupView/landing?userId=<%= userId%>&groupId=<%= item.groupId%>" class="btn btn-primary">Go to Group</a>
+                </div>
+                <div class="mx-4">
+                  <a  class="btn btn-primary" href="/groups/leaveGroup?method=DELETE&groupId=<%= item.groupId%>">Leave Group</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }) %>
       </div>
     </div>
   </div>
