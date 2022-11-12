@@ -136,7 +136,6 @@ router.put('/updateCompRate', function(req, res) {
       res.send(err);
       return;
     }
-    console.log(result);
     var newAvg;
     if (completed == "true") {
       newAvg = result[0].numCompleted/(((result[0].numCompleted-1)/result[0].completionRate)+1)
