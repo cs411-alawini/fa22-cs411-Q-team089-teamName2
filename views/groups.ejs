@@ -25,7 +25,7 @@
                     <h4 id=<%= item.checkListId%>><%= item.names%></h4>
                   </div>
                   <div class="mx-4">
-                    <a href="tbd" class="btn btn-primary">Go to Group</a>
+                    <a href="/groupView/landing?userId=<%= userId%>&groupId=<%= item.groupId%>" class="btn btn-primary">Go to Group</a>
                   </div>
                   <div class="mx-4">
                     <a  class="btn btn-primary" href="/groups/leaveGroup?method=DELETE&groupId=<%= item.groupId%>">Leave Group</a>

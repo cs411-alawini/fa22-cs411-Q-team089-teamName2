@@ -2,20 +2,10 @@ const express = require('express');
 const router = express.Router();
 const path = require("path");
 const db = require("../database.js")
-const fs = require('fs');
 
-var root = '/groups';
-var currMax;
+var root = '/groupView';
 var userId;
-
-fs.readFile('./id.json', 'utf8', function(err, data) {
-  if (err) {
-    console.log(err);
-  } else {
-    obj = JSON.parse(data);
-    currMax = obj.groupId;
-  }
-});
+var groupId;
 
 router.use(function(req, res, next) {
   if (req.query.method == 'DELETE') {
@@ -31,27 +21,12 @@ router.use(function(req, res, next) {
 
 router.get('/landing', function(req, res) {
   userId = req.query.userId;
+  groupId = req.query.groupId;
   res.redirect(root+'/');
 });
 
 router.get('/', function(req, res) {
-  var sql = `
-  SELECT r.groupId, fg.names 
-  FROM Relationships r 
-  JOIN FriendGroup fg ON r.groupId=fg.groupId 
-  WHERE r.userId=${userId}`;
-  console.log(sql);
-
-  db.query(sql, function(err, result) {
-    if (err) {
-      res.send(err);
-      return;
-    }
-    res.render("groups", {
-      data: result,
-      userId: userId
-    })
-  })
+  res.render("groupView");
 });
 
 router.post('/createGroup', function(req, res) {

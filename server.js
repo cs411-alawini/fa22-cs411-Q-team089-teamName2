@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('./database.js')
 const app = express();
 
 // set up ejs view engine 
@@ -15,10 +14,11 @@ app.use('/js',express.static(path.join(__dirname, 'public/javascripts')));
 app.use('/css',express.static(path.join(__dirname, 'public/stylesheets')));
 
 // Apply routers
-app.use('/', require('./routes/index'))
-app.use('/checklist', require('./routes/checklist'))
-app.use('/profile', require('./routes/profile'))
-app.use('/groups', require('./routes/groups'))
+app.use('/', require('./routes/index'));
+app.use('/checklist', require('./routes/checklist'));
+app.use('/profile', require('./routes/profile'));
+app.use('/groups', require('./routes/groups'));
+app.use('/groupView', require('./routes/groupView'));
 
 app.listen(80, function () {
     console.log('Node app is running on port 80');
