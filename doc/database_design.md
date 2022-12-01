@@ -23,8 +23,8 @@ CREATE TABLE FriendGroup (
 CREATE TABLE Alert (
     alertId INT,
     messages VARCHAR(255),
-    pingedUserId INT,
-    FOREIGN KEY (pingedUserId) REFERENCES User (userId)
+    pingedTaskId INT,
+    FOREIGN KEY (pingedTaskId) REFERENCES Tasks (taskId)
 );
 
 CREATE TABLE Tasks(
