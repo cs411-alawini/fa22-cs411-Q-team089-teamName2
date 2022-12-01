@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+   <title>TeamName2 Project</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+ </head>
+
+  <body>
+    <div class="container mt-4">
+      <a href="/checklist/landing?userId=<%= userId%>" class="btn btn-primary position-relative">Back</a>
+    </div>
+    <div class="container mt-4">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="text-center">Tasks</h1>
+        </div>
+        <div id="accordian">
+          <% data.forEach(item => {%>
+          <div class="card m-2">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm">
+                  <p class="mx-4"><%= item.taskContent%></p>
+                </div>
+                <div class="col-sm">
+                  <div class="row">
+                    <a href="/tasks/completeTask?method=PUT&taskId=<%= item.taskId%>" class="btn btn-primary col-sm mx-4">Complete</a>
+                    <a href="/tasks/abandonTask?method=DELETE&taskId=<%= item.taskId%>" class="btn btn-primary col-sm mx-4">Abandon</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-4">
+      <div class="card">
+        <div class="card-body">
+          <form action="/tasks/createTask" method="POST">
+            <label for="newTask">Create Task</label>
+            <input type="text" class="form-control col-lg-9" placeholder="Enter Task Content" name="newTask">
+            <button type="submit" class="btn btn-primary mt-2">Create</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
