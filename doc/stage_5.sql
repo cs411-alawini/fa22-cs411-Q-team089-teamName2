@@ -70,3 +70,15 @@ CREATE PROCEDURE deleteCheckList(
     DELETE FROM Checklist c WHERE c.checkListId=checkListId;
   END //
 DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER leaveGroup
+  AFTER DELETE ON Relationships
+  FOR EACH ROW
+  BEGIN
+    SET @friends = (SELECT COUNT(r.groupId) FROM Relationships r WHERE r.groupId=OLD.groupId);
+    IF @friends=0 THEN
+      DELETE FROM FriendGroup fg WHERE fg.groupId=old.groupId;
+    END IF;
+  END //
+DELIMITER ;

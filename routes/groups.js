@@ -101,7 +101,7 @@ router.post('/joinGroup', function(req, res) {
 router.delete('/leaveGroup', function(req,res) {
   var groupId = req.query.groupId;
   
-  var sql = `DELETE FROM Relationships WHERE groupId=${groupId}`;
+  var sql = `DELETE FROM Relationships WHERE userId=${userId} AND groupId=${groupId}`;
   console.log(sql);
 
   db.query(sql, function(err, result) {
