@@ -9,7 +9,7 @@
 
   <body>
     <div class="container mt-4">
-      <a href="/checklist/landing?userId=<%= userId%>" class="btn btn-primary position-relative">Back</a>
+      <a href="/groupView/landing?userId=<%= userId%>&groupId=<%= groupId%>&groupName=<%= groupName%>" class="btn btn-primary col-sm mx-4">Back to Group</a>
     </div>
     <div class="container mt-4">
       <div class="card">
@@ -34,17 +34,6 @@
             </div>
           </div>
           <% }) %>
-        </div>
-      </div>
-    </div>
-    <div class="container mt-4">
-      <div class="card">
-        <div class="card-body">
-          <form action="/tasks/createTask" method="POST">
-            <label for="newTask">Create Task</label>
-            <input type="text" class="form-control col-lg-9" placeholder="Enter Task Content" name="newTask">
-            <button type="submit" class="btn btn-primary mt-2">Create</button>
-          </form>
         </div>
       </div>
     </div>

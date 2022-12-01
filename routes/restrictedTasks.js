@@ -4,7 +4,7 @@ const path = require("path");
 const db = require("../database.js")
 const fs = require('fs');
 
-var root = '/tasks';
+var root = '/restrictedTasks';
 data = {}
 
 router.use(function(req, res, next) {
@@ -24,15 +24,17 @@ router.use(function(req, res, next) {
 
 router.get('/landing', function(req, res) {
   data['userId'] = req.query.userId;
-  data['checklistId'] = req.query.checklistId;
+  data['friendId'] = req.query.friendId;
+  data['groupId'] = req.query.groupId;
+  data['groupName'] = req.query.groupName;
   res.redirect(root+'/');
 });
 
 router.get('/', function(req, res) {
   var sql = `
-  SELECT taskId, taskContent
-  FROM Tasks  
-  WHERE checkListId=${data['checklistId']}`;
+  SELECT t.taskId, t.taskContent
+  FROM Tasks t JOIN Checklist c ON t.checkListId=t.checkListId
+  WHERE c.userId=${data['friendId']} AND t.dateCompleted IS NULL`;
   console.log(sql);
 
   db.query(sql, function(err, result) {
@@ -43,7 +45,8 @@ router.get('/', function(req, res) {
     res.render("tasks", {
       data: result,
       userId: data["userId"],
-      checklistId: data["checklistId"]
+      friendId: data["friendId"],
+      groupId: data["groupId"],
     })
   })
 });
