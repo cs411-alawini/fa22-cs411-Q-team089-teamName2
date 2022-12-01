@@ -27,6 +27,7 @@ router.get('/landing', function(req, res) {
   data['friendId'] = req.query.friendId;
   data['groupId'] = req.query.groupId;
   data['groupName'] = req.query.groupName;
+  console.log(data);
   res.redirect(root+'/');
 });
 
@@ -42,11 +43,12 @@ router.get('/', function(req, res) {
       res.send(err);
       return;
     }
-    res.render("tasks", {
+    res.render("restrictedTasks", {
       data: result,
       userId: data["userId"],
       friendId: data["friendId"],
       groupId: data["groupId"],
+      groupName: data["groupName"]
     })
   })
 });
