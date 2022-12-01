@@ -23,14 +23,23 @@ router.get('/profileLanding', function(req, res) {
 });
 
 router.get('/', function(req, res) {
-  var sql = `SELECT * FROM User WHERE userId=${userId}`
+  var sql = `
+  SELECT u.names, a.messages, c.checkListId
+  FROM User u
+  JOIN Checklist c ON u.userId=c.userId
+  JOIN Tasks t ON c.checkListId=t.checkListId
+  JOIN Alert a ON t.taskId=a.pingedTaskId
+  WHERE u.userId=${userId}`
   console.log(sql);
   db.query(sql, function(err, result) {
     if (err) {
       res.send(err);
       return;
     }
-    res.render("profile", result[0]);
+    res.render("profile", {
+      userId: userId,
+      data: result
+    });
   })
 });
 

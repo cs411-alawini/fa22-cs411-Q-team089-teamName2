@@ -9,18 +9,24 @@
 
   <body>
     <div class="container mt-4">
-      <h1 class="text-center"><%=names%></h1>
+      <h1 class="text-center"><%=data[0].names%></h1>
     </div>
-
     <div class="container mt-4">
-      <div class="card">
-        <div class="class-body">
-          <h4>Completion Rate: <%=completionRate%></h4>
-        </div>
-      </div>
+      <a href="" class="btn btn-primary mt-4">Stats</a>
       <a href="/checklist/landing?userId=<%= userId%>" class="btn btn-primary mt-4">My Checklists</a>
       <a href="/groups/landing?userId=<%= userId%>" class="btn btn-primary mt-4">My Groups</a>
-
+      <div id="accordian">
+        <% data.forEach(item => {%>
+          <div class="card m-2">
+            <div class="card-body">
+              <div class="row">
+                <h4 class="col-sm mx-4"><%= item.messages%></h4>
+                <a href="/tasks/landing?userId=<%= userId%>&checklistId=<%= item.checkListId%>" class="btn btn-primary col-sm mx-4">Go to Task</a>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+      </div>
     </div>
   </body>
 </html>
