@@ -41,7 +41,7 @@ router.get('/', function(req, res) {
   var sql = `
   SELECT taskId, taskContent
   FROM Tasks  
-  WHERE checkListId=${data['checklistId']} AND dateCompleted IS NULL`;
+  WHERE checkListId=${data['checklistId']}`;
   console.log(sql);
 
   db.query(sql, function(err, result) {

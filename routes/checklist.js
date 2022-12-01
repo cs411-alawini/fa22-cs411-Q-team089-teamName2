@@ -78,7 +78,7 @@ router.post('/createChecklist', function(req, res) {
 router.delete('/deleteChecklist', function(req,res) {
   var checklistId = req.query.checklistId;
   
-  var sql = `DELETE FROM Checklist WHERE checkListId=${checklistId}`;
+  var sql = `CALL deleteCheckList(${userId}, ${checklistId})`;
   console.log(sql);
 
   db.query(sql, function(err, result) {
