@@ -1,7 +1,8 @@
 DELIMITER //
-CREATE PROCEDURE updateCompRate(
+CREATE PROCEDURE updateTaskStatus(
   IN userId INT,
-  IN completed INT
+  IN completed INT,
+  IN taskId INT
 )
   BEGIN
     DECLARE numCompleted INT DEFAULT 0;
@@ -18,8 +19,10 @@ CREATE PROCEDURE updateCompRate(
 
     IF completed = 1 THEN
       SET newAvg = numCompleted/(((numCompleted-1)/completionRate)+1);
+      UPDATE Tasks t SET dateCompleted=GETDATE() WHERE t.taskId=taskId;
     ELSE
       SET newAvg = numCompleted/(((numCompleted)/completionRate)+1);
+      DELETE FROM Tasks t WHERE t.taskId=taskId;
     END IF;
 
     UPDATE User u SET u.completionRate=newAvg WHERE u.userId=userId;
