@@ -19,7 +19,7 @@ CREATE PROCEDURE updateTaskStatus(
 
     IF completed = 1 THEN
       SET newAvg = numCompleted/(((numCompleted-1)/completionRate)+1);
-      UPDATE Tasks t SET dateCompleted=GETDATE() WHERE t.taskId=taskId;
+      UPDATE Tasks t SET dateCompleted = CURRENT_DATE WHERE t.taskId=taskId;
     ELSE
       SET newAvg = numCompleted/(((numCompleted)/completionRate)+1);
       DELETE FROM Tasks t WHERE t.taskId=taskId;

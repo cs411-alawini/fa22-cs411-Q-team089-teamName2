@@ -90,10 +90,8 @@ router.post('/createTask', function(req, res) {
 
 router.put('/completeTask', function(req, res) {
   var taskId = req.query.taskId;
-  var d = new Date();
-  var dateCompleted = d.toISOString().split('T')[0];
 
-  var sql = `UPDATE Tasks SET dateCompleted='${dateCompleted}' WHERE taskId=${taskId}`;
+  var sql = `CALL updateTaskStatus(${data["userId"]}, 1, ${taskId})`;
   console.log(sql);
   
   db.query(sql, function(err, result) {
@@ -101,14 +99,14 @@ router.put('/completeTask', function(req, res) {
       res.send(err);
       return;
     }
-    res.redirect(root + `/updateCompRate?method=PUT&completed=true`);
+    res.redirect(root + `/`);
   });
 });
 
 router.delete('/abandonTask', function(req, res) {
   var taskId = req.query.taskId;
 
-  var sql = `DELETE FROM Tasks WHERE taskId=${taskId}`;
+  var sql = `CALL updateTaskStatus(${data["userId"]}, 0, ${taskId})`;
   console.log(sql);
 
   db.query(sql, function(err, result) {
@@ -116,43 +114,8 @@ router.delete('/abandonTask', function(req, res) {
       res.send(err);
       return;
     }
-    res.redirect(root+ `/updateCompRate?method=PUT&completed=false`);
+    res.redirect(root+ `/`);
   });
-});
-
-router.put('/updateCompRate', function(req, res) {
-  var completed = req.query.completed;
-  var sql = `
-  SELECT COUNT(t.taskId) as numCompleted, u.completionRate
-  FROM User u
-  JOIN Checklist c ON c.userId=u.userId
-  JOIN Tasks t ON t.checkListId=c.checkListId
-  WHERE u.userId=${data["userId"]} AND t.dateCompleted IS NOT NULL
-  GROUP BY u.userId`;
-  console.log(sql);
-
-  db.query(sql, function(err, result) {
-    if (err) {
-      res.send(err);
-      return;
-    }
-    var newAvg;
-    if (completed == "true") {
-      newAvg = result[0].numCompleted/(((result[0].numCompleted-1)/result[0].completionRate)+1)
-    } else {
-      newAvg = result[0].numCompleted/(((result[0].numCompleted)/result[0].completionRate)+1)
-    }
-    var sql = `UPDATE User SET completionRate=${newAvg} WHERE userId=${data["userId"]}`
-    console.log(sql)
-
-    db.query(sql, function(err, result) {
-      if (err) {
-        res.send(err);
-        return;
-      }
-      res.redirect(root+'/');
-    })
-  })
 });
 
 router.post('/joinGroup', function(req, res) {
