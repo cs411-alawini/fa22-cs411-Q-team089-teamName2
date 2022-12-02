@@ -5,31 +5,39 @@ const db = require("../database.js")
 const fs = require('fs');
 
 var root = '/profile';
-var currMax;
-var userId;
+data = {}
 
 fs.readFile('./id.json', 'utf8', function(err, data) {
   if (err) {
     console.log(err);
   } else {
     obj = JSON.parse(data);
-    currMax = obj.checkListId;
+    data['currMax'] = obj.checkListId;
   }
 });
 
 router.get('/profileLanding', function(req, res) {
-  userId = req.query.userId;
-  res.redirect(root+'/');
+  data['userId'] = req.query.userId;
+  var sql = `
+  SELECT * FROM User WHERE userId=${data['userId']}`;
+  console.log(sql);
+  db.query(sql, function(err, result) {
+    if (err) {
+      res.send(err);
+      return;
+    }
+    data['names']=result[0].names;
+    res.redirect(root+'/');
+  });
 });
 
 router.get('/', function(req, res) {
   var sql = `
-  SELECT u.names, a.messages, c.checkListId
-  FROM User u
-  JOIN Checklist c ON u.userId=c.userId
+  SELECT a.messages, c.checkListId
+  FROM Checklist c
   JOIN Tasks t ON c.checkListId=t.checkListId
   JOIN Alert a ON t.taskId=a.pingedTaskId
-  WHERE u.userId=${userId}`
+  WHERE c.userId=${data['userId']}`
   console.log(sql);
   db.query(sql, function(err, result) {
     if (err) {
@@ -37,7 +45,8 @@ router.get('/', function(req, res) {
       return;
     }
     res.render("profile", {
-      userId: userId,
+      userId: data['userId'],
+      names: data['names'],
       data: result
     });
   })

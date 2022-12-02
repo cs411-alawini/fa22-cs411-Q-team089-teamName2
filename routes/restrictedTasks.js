@@ -6,6 +6,16 @@ const fs = require('fs');
 
 var root = '/restrictedTasks';
 data = {}
+var currMax;
+
+fs.readFile('./id.json', 'utf8', function(err, data) {
+  if (err) {
+    console.log(err);
+  } else {
+    obj = JSON.parse(data);
+    currMax = obj.alertId;
+  }
+});
 
 router.use(function(req, res, next) {
   if (req.query.method == 'DELETE') {
@@ -15,7 +25,7 @@ router.use(function(req, res, next) {
     req.method = 'PUT';
     req.url = req.path;
   } else if (req.query.method == "POST") {
-    req.body.newTask = req.query.newTask;
+    req.body.newAlert = req.query.newAlert;
     req.method = "POST";
     req.url = req.path;
   }
@@ -27,14 +37,13 @@ router.get('/landing', function(req, res) {
   data['friendId'] = req.query.friendId;
   data['groupId'] = req.query.groupId;
   data['groupName'] = req.query.groupName;
-  console.log(data);
   res.redirect(root+'/');
 });
 
 router.get('/', function(req, res) {
   var sql = `
   SELECT t.taskId, t.taskContent
-  FROM Tasks t JOIN Checklist c ON t.checkListId=t.checkListId
+  FROM Tasks t JOIN Checklist c ON t.checkListId=c.checkListId
   WHERE c.userId=${data['friendId']} AND t.dateCompleted IS NULL`;
   console.log(sql);
 
@@ -53,12 +62,13 @@ router.get('/', function(req, res) {
   })
 });
 
-router.post('/createTask', function(req, res) {
-  var taskContent = req.body.newTask;
-  currMax+=1;
+router.post('/createAlert', function(req, res) {
+  var message = req.body.newAlert;
+  var taskId = req.query.taskId;
+  currMax += 1;
 
-  var sql = `INSERT INTO Tasks (taskId, checkListId, dateCompleted, taskContent)
-  VALUES ('${currMax}','${data["checklistId"]}',NULL,'${taskContent}')`;
+  var sql = `
+  INSERT INTO Alert VALUES (${currMax}, "${message}", ${taskId})`;
   console.log(sql);
   
   db.query(sql, function(err, result) {
@@ -72,7 +82,7 @@ router.post('/createTask', function(req, res) {
         return;
       } else {
         obj = JSON.parse(data);
-        obj.taskId = currMax;
+        obj.alertId = currMax;
         json = JSON.stringify(obj)
         fs.writeFile('./id.json', json, 'utf8', function(err) {
           if (err) res.send(err);
@@ -82,65 +92,6 @@ router.post('/createTask', function(req, res) {
     });
     res.redirect(root + '/');
   });
-});
-
-router.put('/completeTask', function(req, res) {
-  var taskId = req.query.taskId;
-
-  var sql = `CALL updateTaskStatus(${data["userId"]}, 1, ${taskId})`;
-  console.log(sql);
-  
-  db.query(sql, function(err, result) {
-    if (err) {
-      res.send(err);
-      return;
-    }
-    res.redirect(root + `/`);
-  });
-});
-
-router.delete('/abandonTask', function(req, res) {
-  var taskId = req.query.taskId;
-
-  var sql = `CALL updateTaskStatus(${data["userId"]}, 0, ${taskId})`;
-  console.log(sql);
-
-  db.query(sql, function(err, result) {
-    if (err) {
-      res.send(err);
-      return;
-    }
-    res.redirect(root+ `/`);
-  });
-});
-
-router.post('/joinGroup', function(req, res) {
-  var groupId = req.body.groupId;
-  var sql = `INSERT INTO Relationships (userId, groupId) VALUES (${userId},${groupId})`;
-  console.log(sql);
-  
-  db.query(sql, function(err, result) {
-    if (err) {
-      res.send(err);
-      return;
-    }
-    res.redirect(root + '/');
-  });
-});
-
-router.delete('/leaveGroup', function(req,res) {
-  var groupId = req.query.groupId;
-  
-  var sql = `DELETE FROM Relationships WHERE groupId=${groupId}`;
-  console.log(sql);
-
-  db.query(sql, function(err, result) {
-    if (err) {
-      res.send(err);
-      return;
-    }
-    res.redirect(root+'/');
-  })
 });
 
 module.exports = router; 

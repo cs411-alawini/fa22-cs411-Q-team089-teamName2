@@ -25,10 +25,10 @@
                   <p class="mx-4"><%= item.taskContent%></p>
                 </div>
                 <div class="col-sm">
-                  <div class="row">
-                    <a href="/tasks/completeTask?method=PUT&taskId=<%= item.taskId%>" class="btn btn-primary col-sm mx-4">Complete</a>
-                    <a href="/tasks/abandonTask?method=DELETE&taskId=<%= item.taskId%>" class="btn btn-primary col-sm mx-4">Abandon</a>
-                  </div>
+                  <form action="/restrictedTasks/createAlert?taskId=<%= item.taskId%>" method="POST">
+                    <input type="text" class="form-control col-lg-9" placeholder="Message" name="newAlert">
+                    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                  </form>
                 </div>
               </div>
             </div>
