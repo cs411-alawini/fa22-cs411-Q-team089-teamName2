@@ -17,7 +17,21 @@
           <h1 class="text-center">Checklist</h1>
         </div>
         <div id="accordian">
-          <% data.forEach(item => {%>
+          <div class="card m-2">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm">
+                  <h4 class="mx-4"><%= data[0].names%></h4>
+                </div>
+                <div class="col-sm">
+                  <div class="row">
+                    <a href="/tasks/landing?userId=<%= userId%>&checklistId=<%= data[0].checkListId%>" class="btn btn-primary col-sm mx-4">See Archived Tasks</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% data.splice(1).forEach(item => {%>
           <div class="card m-2">
             <div class="card-body">
               <div class="row">
@@ -27,7 +41,7 @@
                 <div class="col-sm">
                   <div class="row">
                     <a href="/tasks/landing?userId=<%= userId%>&checklistId=<%= item.checkListId%>" class="btn btn-primary col-sm mx-4">See Tasks</a>
-                  <a href="/checklist/deleteChecklist?method=DELETE&checklistId=<%= item.checkListId%>" class="btn btn-primary col-sm mx-4">Delete</a>
+                    <a href="/checklist/deleteChecklist?method=DELETE&checklistId=<%= item.checkListId%>" class="btn btn-primary col-sm mx-4">Delete</a>
                   </div>
                 </div>
               </div>

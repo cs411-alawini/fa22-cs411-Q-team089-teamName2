@@ -15,17 +15,22 @@
       <a href="" class="btn btn-primary mt-4">Stats</a>
       <a href="/checklist/landing?userId=<%= userId%>" class="btn btn-primary mt-4">My Checklists</a>
       <a href="/groups/landing?userId=<%= userId%>" class="btn btn-primary mt-4">My Groups</a>
-      <div id="accordian">
-        <% data.forEach(item => {%>
-          <div class="card m-2">
-            <div class="card-body">
-              <div class="row">
-                <h4 class="col-sm mx-4"><%= item.messages%></h4>
-                <a href="/tasks/landing?userId=<%= userId%>&checklistId=<%= item.checkListId%>" class="btn btn-primary col-sm mx-4">Go to Task</a>
+      <div class="card">
+        <div class="card-body">
+          <h1 class="text-center">Alerts</h1>
+        </div>
+        <div id="accordian">
+          <% data.forEach(item => {%>
+            <div class="card m-2">
+              <div class="card-body">
+                <div class="row">
+                  <h4 class="col-sm mx-4"><%= item.messages%></h4>
+                  <a href="/tasks/landing?userId=<%= userId%>&checklistId=<%= item.checkListId%>" class="btn btn-primary col-sm mx-4">Go to Task</a>
+                </div>
               </div>
             </div>
-          </div>
-          <% }) %>
+            <% }) %>
+        </div>
       </div>
     </div>
   </body>
