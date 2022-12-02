@@ -11,16 +11,19 @@
    <div class="container mt-4">
      <div class="card">
        <div class="card-body">
-         <h2>Sign In</h2>
-         <form action="signin" method="POST">
-           <div class="form-group">
-             <label for="username">Username</label>
-             <input type="text" class="form-control col-lg-9" id="username" placeholder="Enter Username" name="username">
-             <label for="password">Password</label>
-             <input type="text" class="form-control col-lg-9" id="password" placeholder="Enter Password" name="password">
+          <h2>Sign In</h2>
+          <form action="signin" method="POST">
+            <div class="form-group">
+              <label for="userId">Username</label>
+              <input type="text" class="form-control col-lg-9" id="userId" placeholder="Enter UserId" name="userId">
+              <label for="password">Password</label>
+              <input type="text" class="form-control col-lg-9" id="password" placeholder="Enter Password" name="password">
             </div>
-           <button type="submit" class="btn btn-primary">Submit</button>
-         </form>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        <%if (!success) {%>
+          <p class="text-danger">Either userId or password is incorrect</p>
+        <%}%>
      </div>
     </div>
   </body>

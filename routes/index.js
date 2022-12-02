@@ -5,16 +5,27 @@ const db = require("../database.js")
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index');
+  res.render('index', {success: true});
 });
 
 router.post('/signin', function(req, res) {
-  var username = req.body.username
+  var userId = req.body.userId
   var password = req.body.password
 
-  req.query.userId = username
-  res.redirect('/checklist/landing?userId='+req.query.userId);
-  return;
+  var sql = `
+  SELECT userId, passwords FROM User WHERE userId=${userId}`;
+  console.log(sql);
+  db.query(sql, function(err, result) {
+    if (err) {
+      res.send(err);
+      return;
+    }
+    if (result.length>0 && result[0].passwords == password) {
+      res.redirect(`/checklist/landing?userId=${userId}`);
+    } else {
+      res.render('index', {success: false});
+    }
+  });
 });
 
 module.exports = router;
