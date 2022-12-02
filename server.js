@@ -21,6 +21,7 @@ app.use('/groups', require('./routes/groups'));
 app.use('/groupView', require('./routes/groupView'));
 app.use('/tasks', require('./routes/tasks'));
 app.use('/restrictedTasks', require('./routes/restrictedTasks'));
+app.use('/signup', require('./routes/signup'));
 
 app.listen(80, function () {
     console.log('Node app is running on port 80');
