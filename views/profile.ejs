@@ -12,9 +12,11 @@
       <h1 class="text-center"><%=names%></h1>
     </div>
     <div class="container mt-4">
-      <a href="" class="btn btn-primary mt-4">Stats</a>
       <a href="/checklist/landing?userId=<%= userId%>" class="btn btn-primary mt-4">My Checklists</a>
       <a href="/groups/landing?userId=<%= userId%>" class="btn btn-primary mt-4">My Groups</a>
+      <div class="container mt-4">
+        <h4 class="text-center">Completion rate: <%=completionRate%></h1>
+      </div>
       <div class="card">
         <div class="card-body">
           <h1 class="text-center">Alerts</h1>

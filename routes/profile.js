@@ -31,6 +31,21 @@ router.get('/profileLanding', function(req, res) {
   });
 });
 
+router.get('/profileLanding', function(req, res) {
+  data['userId'] = req.query.userId;
+  var sql = `
+  SELECT * FROM User WHERE userId=${data['userId']}`;
+  console.log(sql);
+  db.query(sql, function(err, result) {
+    if (err) {
+      res.send(err);
+      return;
+    }
+    data['completionRate']=result[0].completionRate;
+    res.redirect(root+'/');
+  });
+});
+
 router.get('/', function(req, res) {
   var sql = `
   SELECT a.messages, c.checkListId
@@ -47,6 +62,7 @@ router.get('/', function(req, res) {
     res.render("profile", {
       userId: data['userId'],
       names: data['names'],
+      completionRate: data['completionRate'],
       data: result
     });
   })
