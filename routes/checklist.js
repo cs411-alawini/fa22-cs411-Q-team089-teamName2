@@ -31,13 +31,14 @@ router.get('/landing', function(req, res) {
 });
 
 router.get('/', function(req, res) {
-  var sql = `SELECT checkListId, names FROM Checklist WHERE userId=${userId}`;
+  var sql = `SELECT checkListId, names FROM Checklist WHERE userId=${userId} ORDER BY checkListId`;
   console.log(sql);
   db.query(sql, function(err, result) {
     if (err) {
       res.send(err);
       return;
     }
+    console.log(result);
     res.render("checklist", {
       data: result,
       userId: userId

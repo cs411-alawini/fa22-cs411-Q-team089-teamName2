@@ -18,29 +18,14 @@ fs.readFile('./id.json', 'utf8', function(err, data) {
 });
 
 router.get('/', function(req, res) {
-  currUserId+=1;
-  currChecklistId+=1;
   res.render('signup', {userId: currUserId});
 });
 
 router.post('/createUser', function(req, res) {
   var name = req.body.name
   var password = req.body.password
-  fs.readFile('./id.json', 'utf8', function(err, data) {
-    if (err) {
-      res.send(err);
-      return;
-    } else {
-      obj = JSON.parse(data);
-      obj.userId = currUserId;
-      obj.checkListId = currChecklistId;
-      json = JSON.stringify(obj)
-      fs.writeFile('./id.json', json, 'utf8', function(err) {
-        if (err) res.send(err);
-        return;
-      });
-    }
-  });
+  currUserId+=1;
+  currChecklistId+=1;
 
   var sql = `
   INSERT INTO User VALUES (${currUserId}, '${password}', '${name}', 1)`;
@@ -58,6 +43,21 @@ router.post('/createUser', function(req, res) {
         res.send(err);
         return;
       }
+      fs.readFile('./id.json', 'utf8', function(err, data) {
+        if (err) {
+          res.send(err);
+          return;
+        } else {
+          obj = JSON.parse(data);
+          obj.userId = currUserId;
+          obj.checkListId = currChecklistId;
+          json = JSON.stringify(obj)
+          fs.writeFile('./id.json', json, 'utf8', function(err) {
+            if (err) res.send(err);
+            return;
+          });
+        }
+      });
       res.redirect(`/checklist/landing?userId=${currUserId}`);
     });
   });
