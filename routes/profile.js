@@ -27,21 +27,8 @@ router.get('/profileLanding', function(req, res) {
       return;
     }
     data['names']=result[0].names;
-    res.redirect(root+'/');
-  });
-});
-
-router.get('/profileLanding', function(req, res) {
-  data['userId'] = req.query.userId;
-  var sql = `
-  SELECT * FROM User WHERE userId=${data['userId']}`;
-  console.log(sql);
-  db.query(sql, function(err, result) {
-    if (err) {
-      res.send(err);
-      return;
-    }
-    data['completionRate']=result[0].completionRate;
+    console.log(result[0])
+    //data['completionRate']=result[0].completionRate;
     res.redirect(root+'/');
   });
 });
