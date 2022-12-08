@@ -27,8 +27,7 @@ router.get('/profileLanding', function(req, res) {
       return;
     }
     data['names']=result[0].names;
-    console.log(result[0])
-    //data['completionRate']=result[0].completionRate;
+    data['completionRate']=result[0].completionRate;
     res.redirect(root+'/');
   });
 });
