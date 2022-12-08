@@ -27,6 +27,7 @@ router.get('/profileLanding', function(req, res) {
       return;
     }
     data['names']=result[0].names;
+    data['completionRate']=result[0].completionRate;
     res.redirect(root+'/');
   });
 });
@@ -47,6 +48,7 @@ router.get('/', function(req, res) {
     res.render("profile", {
       userId: data['userId'],
       names: data['names'],
+      completionRate: data['completionRate'],
       data: result
     });
   })
