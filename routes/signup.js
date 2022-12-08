@@ -32,7 +32,7 @@ router.post('/createUser', function(req, res) {
       return;
     } else {
       obj = JSON.parse(data);
-      obj.userID = currUserId;
+      obj.userId = currUserId;
       obj.checkListId = currChecklistId;
       json = JSON.stringify(obj)
       fs.writeFile('./id.json', json, 'utf8', function(err) {
